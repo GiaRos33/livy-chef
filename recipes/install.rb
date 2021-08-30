@@ -11,7 +11,8 @@ include_recipe "java"
 
 group node['hops']['group'] do
   gid node['hops']['group_id']
-  action :create
+  action :create                    
+  default['livy']['gid']
   not_if "getent group #{node['hops']['group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
@@ -20,6 +21,7 @@ user node['livy']['user'] do
   home node['livy']['user-home']
   gid node['hops']['group']
   action :create
+  default['livy']['uid']
   shell "/bin/bash"
   manage_home true
   not_if "getent passwd #{node['livy']['user']}"
@@ -43,6 +45,7 @@ end
 
 group node['kagent']['userscerts_group'] do
   action :create
+  default['kagent']['gid']
   not_if "getent group #{node['kagent']['userscerts_group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
