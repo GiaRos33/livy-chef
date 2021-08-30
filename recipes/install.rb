@@ -21,7 +21,7 @@ user node['livy']['user'] do
   home node['livy']['user-home']
   gid node['hops']['group']
   action :create
-  default['livy']['uid']
+  uid node['livy']['uid']
   shell "/bin/bash"
   manage_home true
   not_if "getent passwd #{node['livy']['user']}"
@@ -45,7 +45,7 @@ end
 
 group node['kagent']['userscerts_group'] do
   action :create
-  default['kagent']['gid']
+  gid node['kagent']['gid']
   not_if "getent group #{node['kagent']['userscerts_group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
