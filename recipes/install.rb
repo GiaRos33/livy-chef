@@ -45,7 +45,7 @@ end
 
 group node['kagent']['userscerts_group'] do
   action :create
-  gid node['kagent']['gid']
+  gid node['userscerts_group']['gid']
   not_if "getent group #{node['kagent']['userscerts_group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
